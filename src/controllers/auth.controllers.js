@@ -12,19 +12,20 @@ const login =async (req,res) =>{
      });
     
     res.json(data);
+    
 
-    console.log(token);
+    console.log(data);
   }
   catch(error){
     res.status(400).json({message:error.message});
   }
 };
-const register =async(req,res) =>{
+const register = async(req,res) =>{
   
   try{
-const data =  await authServices.register(req.body);
+const data = await authServices.register(req.body);
 const token =jwtUtils.generateToken(data);
-res.cookie("authtoken",token,{
+res.cookie("authToken",token,{
   maxAge:86400 * 1000,
 });
     res.json(data);
@@ -34,4 +35,9 @@ res.cookie("authtoken",token,{
   }
 };
 
-export default {login,register};
+const logout=(req,res)=>{
+  res.clearCookie("authToken");
+  res.json({message:"cookies clear"})
+}
+
+export default {login,register,logout};

@@ -72,9 +72,8 @@ relationships
             server -> respond -> browser
 
     ##useage
-    loggin
+    loggin  (log report)
     authentication and authorization
     request and respond object modification
     error handaling 
     data validation
-    

@@ -17,6 +17,11 @@ const productSchema = new mongoose.Schema({
         type:Number,
         default: 1,
     },
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        required:true,
+    },
 });
 export default mongoose.model("Product", productSchema);
 

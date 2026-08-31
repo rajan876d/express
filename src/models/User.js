@@ -10,14 +10,14 @@ const userSchema = new mongoose.Schema({
     gender: String,
 
     roles: {
-        types:[String],
+        type:[String],
         default: ["CUSTOMER"],
         enum:["CUSTOMER","MERCHANT","ADMIN","SUPER_ADMIN"],
     },
     phone:{
         type:String,
         required:[true,"Phone number is required."],
-        unique: [true, "Phone number olready exists"],
+        unique: true,
     },
     CreatedAt:{
         type: Date,
@@ -32,7 +32,8 @@ const userSchema = new mongoose.Schema({
             return emailRegex.test(value);
         },
         message: "Please enter a valid email address."
-    }
+    },
+    unique:true
 },
     password:{
         type:String,

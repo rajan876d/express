@@ -5,12 +5,13 @@ import authRoutes from "./routers/auth.routes.js";
 import connectDB from "./config/database.js";
 import productRoutes from "./routers/product.routes.js";
 // import cartsRouter from "./routers/Cart.routes.js";
-
+import logger from "./middlewares/logger.js";
 connectDB();
 
 const app = express();
 
 app.use(express.json());
+app.use(logger);
 
 app.get("/", (request, response) => {
 response.send("Home page");
@@ -19,26 +20,8 @@ response.send("Home page");
 app.get("/about",(req, res) => {
     res.send("About page");
 })
-// app.get("/about",(req,res)=>{
-//     res.send("about us");
-// })
-// app.get("/contact",(req,res)=>{
-//     res.send("contact page");
-// })
-
-
-// app.get("/users",(req,res)=>{
-//     const id = req.params.userid;
-
-//     const users = await fs.readfile("data/user.json","utf-8");
-
-//     const user =JSON.parse(users).find((user) => user.id ==id);
-//     res.json(firstuser) 
-// })
-
 app.use("/", userRoutes);
-app.use("/", productRoutes);
-// app.use("/", cartsRouter);
+app.use("/products", productRoutes);
 app.use("/api/auth/",authRoutes);
 
 app.listen(config.port,  () =>{
