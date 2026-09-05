@@ -1,7 +1,7 @@
 import userServers from "../services/user.services.js"
 const createUser = async (req,res) =>{
     try{
-         const createUser =  await userServers.createUser();
+         const createUser =  await userServers.createUser(req.body);
         res.json(createUser);
     }
     catch(error){

@@ -1,16 +1,16 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
     
-const createUser = async() =>{
+const createUser = async(data) =>{
+       const hashedPassword = await bcrypt.hash(userData.password, 10);
     return await User.create({
-    name:"hari",
-    age:24,
-    gender:"male",
-    phone:"9877777777",
-    email:"hari1@gmail.com",
-    password:"@Dmin123",
-    });
+        name:data.name,
+        email:data.email,
+        role:data.role,
+        password:hashedPassword,
+        phone:data.phone,
 
+    });
 }
 
 const getUsers = async () =>{

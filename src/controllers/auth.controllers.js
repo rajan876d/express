@@ -10,7 +10,6 @@ const login =async (req,res) =>{
      res.cookie("authToken",token,{
       maxAge:86400*1000, 
      });
-    
     res.json(data);
     
 

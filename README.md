@@ -45,15 +45,15 @@ relationships
 ##http method
 
 1. GET
-2.POST
-3.PUT
-4.DELETE
-5.PATCH-partial update
+2. POST
+3. PUT
+4. DELETE
+5. PATCH-partial update
 
 ## Layered Architecture
 1. API Layer
     a. Router:Endpoints
-    b. Controllers: Request/Response matra handel garni
+    b. Controllers: Request/Response matra handle garni
     c. middlewares: Auth
 2. Business Logic Layer
     a. Services

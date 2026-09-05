@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { emailRegex } from "../constants/regex.js";
+import { Role_Admin, Role_Customer, Role_Merchant, Role_Super_Admin } from "../constants/role.js";
 
 const userSchema = new mongoose.Schema({
     name:{
@@ -12,7 +14,7 @@ const userSchema = new mongoose.Schema({
     roles: {
         type:[String],
         default: ["CUSTOMER"],
-        enum:["CUSTOMER","MERCHANT","ADMIN","SUPER_ADMIN"],
+        enum:[Role_Admin, Role_Customer, Role_Merchant, Role_Super_Admin],
     },
     phone:{
         type:String,
@@ -27,8 +29,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "Email address is required."],
     validate: {
-        validator: (value) => {
-            const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        validator: (value) => {  
             return emailRegex.test(value);
         },
         message: "Please enter a valid email address."
@@ -39,7 +40,10 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:[true, "Password is required"],
     },
-
+    isActive:{
+        type:Boolean,
+        default:true,
+    },
 });
 
 export default mongoose.model("User",userSchema); 
