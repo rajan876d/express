@@ -95,3 +95,16 @@ relationships
         500 Internal server error
         502 bad gateway
         504 timeout 
+
+    ## File upload to Cloudinary
+    - File are stored in bucket
+    - Storzge: Cloudinary (clo)  
+
+    -- Multipart/ form-data handler:multer
+
+    # File upload process
+     multer temporarily store the file in local folder or in RAM
+     Upload file in to cloudenary
+     cloudinary provide public url after successful upload 
+     store this public url in the database
+     remove the temp file if necessary

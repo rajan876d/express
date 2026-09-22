@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import uploadFiles from "../utils/fileUploader.js";
     
 const createUser = async(data) =>{
        const hashedPassword = await bcrypt.hash(userData.password, 10);
@@ -18,4 +19,13 @@ const getUsers = async () =>{
     return user;
 }
 
-export default  {createUser,getUsers};
+const deleteUser = async (id)=>{
+    await User.findByIdAndDelete(id);
+};
+
+const updateProfileImage = async (id, file) =>{
+    const uploadedFiles = await uploadFiles([file]);
+    return User.findByIdAndUpdate(id,{profileImageUrl:uploadedFiles[0].url},{new: true})
+}
+
+export default  {createUser,getUsers,deleteUser,updateProfileImage};

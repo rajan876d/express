@@ -19,7 +19,8 @@ router.put("/:id",auth,productControllers.updateProduct);
 router.delete("/:id",auth,productControllers.deleteProduct);
 
 router.post("/",auth,
-     roleBasedAuth("MERCHANT"),validate(userSchema),
+     roleBasedAuth("MERCHANT"),
+     // validate(userSchema),
      productControllers.createProduct);
 
 export default router;

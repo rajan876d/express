@@ -1,4 +1,5 @@
 import Product from "../models/Product.js";
+import uploadFiles from "../utils/fileUploader.js";
 const getProduct = async (query) => {
 
    const limit = query?.limit;
@@ -28,7 +29,7 @@ const getproductById = async (id) => {
    }
    return product;
 }
-const updateProduct = async (id, data, userid) => {
+const updateProduct = async (id, data,userid,files) => {
    const product = await Product.findById(id);
    if (!product) {
       throw {
@@ -42,7 +43,14 @@ const updateProduct = async (id, data, userid) => {
          }
       }
    }
-   return await Product.findByIdAndUpdate(id, data, { new: true });
+
+   const updateData = data;
+   if (files && files.length > 0 ){
+      const uploadedFiles = await uploadFiles(files);
+
+      updateData.imageUrls = uploadedFiles.map((item) => item.url);
+   }
+   return await Product.findByIdAndUpdate(id, updateData, { new: true });
 }
 
 const deleteProduct = async (id, userId) => {
@@ -59,7 +67,9 @@ const deleteProduct = async (id, userId) => {
    }
    return await Product.findByIdAndDelete(id, { new: true });
 }
-const createProduct = async (input, userid) => {
+const createProduct = async (input, files,  userid) => {
+   const uploadedFiles = await uploadFiles(files);
+   const imageUrls = uploadedFiles.map(item=>item.url)
    const products = await Product.create({
       name: input.name,
       category: input.category,
@@ -67,6 +77,7 @@ const createProduct = async (input, userid) => {
       price: input.price,
       stock: input.stock,
       createdBy: userid,
+      imageUrls: imageUrls,
 
    });
    return {
@@ -76,6 +87,7 @@ const createProduct = async (input, userid) => {
       price: products.price,
       stock: products.stock,
       createdBy: products.createdBy,
+      imageUrls: products.imageUrls,
    }
 };
 

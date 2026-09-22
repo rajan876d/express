@@ -44,6 +44,21 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:true,
     },
+    profileImageUrl:String,
+    address:{
+            city:{
+                type:String,
+                // required:true,
+            },
+            provice:{
+                type:String,
+            },
+            street:String,
+            country:{
+                type:String,
+                default:"Nepal",
+            },
+        },
 });
 
 export default mongoose.model("User",userSchema); 

@@ -1,10 +1,10 @@
 import productServices from "../services/product.services.js";
 
 
+
 const createProduct = async (req, res) => {
-   console.log(req.user);
    try{
-    const createdProduct = await productServices.createProduct(req.body, req.user._id);
+    const createdProduct = await productServices.createProduct(req.body, req.files, req.user._id);
     res.json(createdProduct);
    }
    catch(error){
@@ -34,7 +34,8 @@ const updateProduct = async (req, res) => {
    try{
     const product = await productServices.updateProduct(req.params.id,
       req.body,
-      req.user._id);
+      req.user._id,
+      req.files);
     res.json(product);
    }
    catch(error){

@@ -22,10 +22,12 @@ const userSchema = z.object({
   role: z.array(z.enum([Role_Admin ,Role_Customer, Role_Merchant])).optional(),
 
   phone: z
-    .string({ error: "phone is required" })
+    .string({ error: "phone isss required" })
     .trim(),
 
   isActive: z.boolean().optional(),
 });
+
+
 
 export { userSchema };
